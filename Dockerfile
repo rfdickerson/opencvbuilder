@@ -1,13 +1,17 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
 LABEL opencv.version="4.0.1"
+LABEL maintainer="Robert F. Dickerson"
+
 ENV OPENCV_VERSION 4.0.1
 ENV BUILD_EXAMPLES ON
 ENV BUILD_TESTS ON
+ENV OPENCV_ENABLE_NONFREE ON
 
 RUN apt-get update && apt-get install -y \
     build-essential \
-    checkinstall \
+    ccache \
+    checkinstall \s
     cmake \
     curl \
     gfortran \
@@ -16,7 +20,6 @@ RUN apt-get update && apt-get install -y \
     libavcodec-dev \
     libavformat-dev \
     libavresample-dev \
-    libopenblas-dev \
     libdc1394-22-dev \
     libeigen3-dev \
     libgstreamer-plugins-good1.0-dev \
@@ -25,6 +28,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     liblapack-dev \
     libmp3lame-dev \
+    libopenblas-dev \
     libopenblas-dev \
     libpng-dev \
     libprotobuf-dev \
@@ -74,7 +78,7 @@ RUN cmake \
         -D CUDA_FAST_MATH=1 \
         -D WITH_CUBLAS=1 \
         -D INSTALL_C_EXAMPLES=${BUILD_EXAMPLES}} \
-        -D OPENCV_ENABLE_NONFREE=ON \
+        -D OPENCV_ENABLE_NONFREE=${OPENCV_ENABLE_NONFREE} \
         -D OPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules \
         -D PYTHON_DEFAULT_EXECUTABLE=/usr/bin/python3 \
         -D BUILD_EXAMPLES=${BUILD_EXAMPLES} \
