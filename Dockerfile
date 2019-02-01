@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     libatlas-base-dev \
     libavcodec-dev \
     libavformat-dev \
+    libavresample-dev \
     libdc1394-22-dev \
     libeigen3-dev \
     libgtk2.0-dev \
@@ -45,7 +46,9 @@ RUN pip3 install \
     numpy \
     scipy \
     scikit-image \
-    scikit-learn
+    scikit-learn \
+    flake8 \
+    pylint
 
 RUN git clone https://github.com/opencv/opencv.git --branch ${OPENCV_VERSION}
 
