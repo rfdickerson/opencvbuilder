@@ -66,4 +66,4 @@ RUN cmake \
         -D BUILD_TESTS=OFF \
         /opencv
 
-CMD make
+CMD make -j$(nproc)
