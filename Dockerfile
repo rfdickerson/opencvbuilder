@@ -13,10 +13,13 @@ RUN apt-get update && apt-get install -y \
     libatlas-base-dev \
     libavcodec-dev \
     libavformat-dev \
+    libdc1394-22-dev \
     libeigen3-dev \
+    libgtk2.0-dev \
     libhdf5-dev \
     libjpeg-dev \
     liblapack-dev \
+    libmp3lame-dev \
     libopenblas-dev \
     libpng-dev \
     libprotobuf-dev \
@@ -24,11 +27,15 @@ RUN apt-get update && apt-get install -y \
     libtbb-dev \
     libtbb2 \
     libv4l-dev \
+    libvorbis-dev \
     libx264-dev \
+    libxine2-dev \
     libxvidcore-dev \
     protobuf-compiler \
     python3 \
     python3-pip \
+    v4l-utils \
+    x264 \
     yasm \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
