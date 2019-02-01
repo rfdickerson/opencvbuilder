@@ -11,7 +11,7 @@ ENV OPENCV_ENABLE_NONFREE ON
 RUN apt-get update && apt-get install -y \
     build-essential \
     ccache \
-    checkinstall \s
+    checkinstall \
     cmake \
     curl \
     gfortran \
