@@ -2,6 +2,8 @@ FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
 LABEL opencv.version="4.0.1"
 ENV OPENCV_VERSION 4.0.1
+ENV BUILD_EXAMPLES ON
+ENV BUILD_TESTS ON
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -14,8 +16,10 @@ RUN apt-get update && apt-get install -y \
     libavcodec-dev \
     libavformat-dev \
     libavresample-dev \
+    libopenblas-dev \
     libdc1394-22-dev \
     libeigen3-dev \
+    libgstreamer-plugins-good1.0-dev \
     libgtk2.0-dev \
     libhdf5-dev \
     libjpeg-dev \
@@ -33,6 +37,7 @@ RUN apt-get update && apt-get install -y \
     libxine2-dev \
     libxvidcore-dev \
     protobuf-compiler \
+    python2.7-dev \
     python3 \
     python3-pip \
     v4l-utils \
@@ -68,12 +73,12 @@ RUN cmake \
         -D ENABLE_FAST_MATH=1 \
         -D CUDA_FAST_MATH=1 \
         -D WITH_CUBLAS=1 \
-        -D INSTALL_C_EXAMPLES=OFF \
+        -D INSTALL_C_EXAMPLES=${BUILD_EXAMPLES}} \
         -D OPENCV_ENABLE_NONFREE=ON \
         -D OPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules \
         -D PYTHON_DEFAULT_EXECUTABLE=/usr/bin/python3 \
-        -D BUILD_EXAMPLES=ON \
-        -D BUILD_TESTS=OFF \
+        -D BUILD_EXAMPLES=${BUILD_EXAMPLES} \
+        -D BUILD_TESTS=${BUILD_TESTS} \
         /opencv
 
 CMD make -j$(nproc)
