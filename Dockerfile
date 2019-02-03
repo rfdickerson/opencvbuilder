@@ -1,11 +1,13 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
+VOLUME /build
+
 LABEL opencv.version="4.0.1"
 LABEL maintainer="Robert F. Dickerson"
 
 ENV OPENCV_VERSION 4.0.1
-ENV BUILD_EXAMPLES ON
-ENV BUILD_TESTS ON
+ENV BUILD_EXAMPLES OFF
+ENV BUILD_TESTS OFF
 ENV OPENCV_ENABLE_NONFREE ON
 
 RUN apt-get update && apt-get install -y \
@@ -64,25 +66,6 @@ RUN git clone https://github.com/opencv/opencv.git --branch ${OPENCV_VERSION}
 # OpenCV contrib modules
 RUN git clone https://github.com/opencv/opencv_contrib --branch ${OPENCV_VERSION}
 
-RUN mkdir build
-
 WORKDIR /build
 
-RUN cmake \
-        -D CMAKE_BUILD_TYPE=RELEASE \
-        -D CMAKE_INSTALL_PREFIX=/usr/local \
-        -D INSTALL_PYTHON_EXAMPLES=ON \
-        -D WITH_CUDA=ON \
-        -D WITH_TBB=ON \
-        -D ENABLE_FAST_MATH=1 \
-        -D CUDA_FAST_MATH=1 \
-        -D WITH_CUBLAS=1 \
-        -D INSTALL_C_EXAMPLES=${BUILD_EXAMPLES}} \
-        -D OPENCV_ENABLE_NONFREE=${OPENCV_ENABLE_NONFREE} \
-        -D OPENCV_EXTRA_MODULES_PATH=/opencv_contrib/modules \
-        -D PYTHON_DEFAULT_EXECUTABLE=/usr/bin/python3 \
-        -D BUILD_EXAMPLES=${BUILD_EXAMPLES} \
-        -D BUILD_TESTS=${BUILD_TESTS} \
-        /opencv
-
-CMD make -j$(nproc)
+COPY compile.sh /
