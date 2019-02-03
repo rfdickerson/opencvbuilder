@@ -69,3 +69,5 @@ RUN git clone https://github.com/opencv/opencv_contrib --branch ${OPENCV_VERSION
 WORKDIR /build
 
 COPY compile.sh /
+
+CMD /compile.sh

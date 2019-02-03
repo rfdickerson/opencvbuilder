@@ -2,8 +2,9 @@ build:
 	docker build -t rfdickerson/opencvbuilder .
 
 compile:
-	docker run -it --rm \
+	docker run --rm \
 	--runtime=nvidia \
-	-v `pwd`:/build \
-	rfdickerson/opencvbuilder \
-	/bin/bash
+	-v /tmp/package:/package \
+	-v /tmp/build:/build \
+	rfdickerson/opencvbuilder
+
